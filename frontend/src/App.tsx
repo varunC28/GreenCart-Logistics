@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import type { ReactElement, ReactNode } from 'react';
 import './App.css';
 import Login from './pages/Login';
@@ -20,14 +20,14 @@ function Layout({ children }: { children: ReactNode }) {
   const { isAuthenticated, logout } = useAuthStore();
   return (
     <div>
-      <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #ddd' }}>
+      <nav className="topNav">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/simulation">Simulation</Link>
         <Link to="/drivers">Drivers</Link>
         <Link to="/routes">Routes</Link>
         <Link to="/orders">Orders</Link>
         <Link to="/history">History</Link>
-        <span style={{ flex: 1 }} />
+        <span className="spacer" />
         {isAuthenticated && <button onClick={logout}>Logout</button>}
       </nav>
       <div>{children}</div>
@@ -37,7 +37,7 @@ function Layout({ children }: { children: ReactNode }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
@@ -103,6 +103,6 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
