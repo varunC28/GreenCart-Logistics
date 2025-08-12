@@ -16,38 +16,38 @@ model Manager {
 }
 
 model Driver {
-  id                Int       @id @default(autoincrement())
+  id                Int          @id @default(autoincrement())
   name              String
-  currentShiftHours Int       @default(0)
-  past7DayHours     Int[]     @default([])
+  currentShiftHours Int          @default(0)
+  past7DayHours     Int[]        @default([])
   lastWorkDate      DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
   assignments       Assignment[]
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
 }
 
 model Route {
-  id               Int      @id @default(autoincrement())
-  routeId          String   @unique
-  distanceKm       Float
-  trafficLevel     String
-  baseTimeMinutes  Int
-  orders           Order[]
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  routeId         String   @unique
+  distanceKm      Float
+  trafficLevel    String
+  baseTimeMinutes Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  orders          Order[]
 }
 
 model Order {
-  assignments      Assignment[]
-  id                Int       @id @default(autoincrement())
-  orderId           String    @unique
+  id                Int          @id @default(autoincrement())
+  orderId           String       @unique
   valueRs           Int
   assignedRouteId   Int?
-  assignedRoute     Route?    @relation(fields: [assignedRouteId], references: [id])
   deliveryTimestamp DateTime?
-  status            String    @default("pending")
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  status            String       @default("pending")
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  assignments       Assignment[]
+  assignedRoute     Route?       @relation(fields: [assignedRouteId], references: [id])
 }
 
 model SimulationResult {
@@ -55,22 +55,22 @@ model SimulationResult {
   startedAt   DateTime     @default(now())
   inputs      Json
   metrics     Json
-  assignments Assignment[]
   createdAt   DateTime     @default(now())
+  assignments Assignment[]
 }
 
 model Assignment {
-  id               Int               @id @default(autoincrement())
-  simulationId     Int
-  simulation       SimulationResult  @relation(fields: [simulationId], references: [id])
-  orderId          Int
-  order            Order             @relation(fields: [orderId], references: [id])
-  driverId         Int
-  driver           Driver            @relation(fields: [driverId], references: [id])
-  onTime           Boolean
-  fuelCost         Int
-  penalty          Int
-  bonus            Int
-  profit           Int
-  deliveryMinutes  Int
+  id              Int              @id @default(autoincrement())
+  simulationId    Int
+  orderId         Int
+  driverId        Int
+  onTime          Boolean
+  fuelCost        Int
+  penalty         Int
+  bonus           Int
+  profit          Int
+  deliveryMinutes Int
+  driver          Driver           @relation(fields: [driverId], references: [id])
+  order           Order            @relation(fields: [orderId], references: [id])
+  simulation      SimulationResult @relation(fields: [simulationId], references: [id])
 }

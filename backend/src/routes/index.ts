@@ -4,10 +4,12 @@ import drivers from './drivers';
 import routes from './routes';
 import orders from './orders';
 import simulation from './simulation';
+import { requireAuth } from '../middleware/auth';
 
 const api = Router();
 
 api.use('/auth', auth);
+api.use(requireAuth);
 api.use('/drivers', drivers);
 api.use('/routes', routes);
 api.use('/orders', orders);

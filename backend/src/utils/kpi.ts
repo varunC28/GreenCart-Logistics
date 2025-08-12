@@ -78,7 +78,7 @@ export function evaluateAssignment(input: AssignmentInput): AssignmentResult {
   };
 }
 
-export function computeKpis(assignments: AssignmentResult[], totalOrdersInSystem: number): KpiResult {
+export function computeKpis(assignments: AssignmentResult[], _totalOrdersInSystem: number): KpiResult {
   const totalProfit = assignments.reduce((sum, a) => sum + a.profit, 0);
   const onTimeDeliveries = assignments.filter((a) => a.onTime).length;
   const lateDeliveries = assignments.length - onTimeDeliveries;
@@ -86,8 +86,7 @@ export function computeKpis(assignments: AssignmentResult[], totalOrdersInSystem
   const fuelBase = assignments.reduce((sum, a) => sum + Math.round(5 * a.route.distanceKm), 0);
   const fuelSurcharge = assignments.reduce((sum, a) => sum + (a.route.trafficLevel === 'High' ? Math.round(2 * a.route.distanceKm) : 0), 0);
   const deliveries = assignments.length;
-  const onTimeRatio = deliveries === 0 ? 0 : onTimeDeliveries / deliveries;
-  const efficiencyScore = Math.round(onTimeRatio * (deliveries / Math.max(totalOrdersInSystem, 1)) * 100);
+  const efficiencyScore = deliveries === 0 ? 0 : Math.round((onTimeDeliveries / deliveries) * 100);
 
   return {
     totalProfit,

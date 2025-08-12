@@ -1,35 +1,108 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import type { ReactElement, ReactNode } from 'react';
+import './App.css';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Simulation from './pages/Simulation';
+import Drivers from './pages/Drivers';
+import RoutesPage from './pages/RoutesPage';
+import OrdersPage from './pages/OrdersPage';
+import History from './pages/History';
+import { useAuthStore } from './store/auth';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function Protected({ children }: { children: ReactElement }) {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return children;
 }
 
-export default App
+function Layout({ children }: { children: ReactNode }) {
+  const { isAuthenticated, logout } = useAuthStore();
+  return (
+    <div>
+      <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #ddd' }}>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/simulation">Simulation</Link>
+        <Link to="/drivers">Drivers</Link>
+        <Link to="/routes">Routes</Link>
+        <Link to="/orders">Orders</Link>
+        <Link to="/history">History</Link>
+        <span style={{ flex: 1 }} />
+        {isAuthenticated && <button onClick={logout}>Logout</button>}
+      </nav>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Protected>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route
+          path="/simulation"
+          element={
+            <Protected>
+              <Layout>
+                <Simulation />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route
+          path="/drivers"
+          element={
+            <Protected>
+              <Layout>
+                <Drivers />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route
+          path="/routes"
+          element={
+            <Protected>
+              <Layout>
+                <RoutesPage />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <Protected>
+              <Layout>
+                <OrdersPage />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <Protected>
+              <Layout>
+                <History />
+              </Layout>
+            </Protected>
+          }
+        />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
