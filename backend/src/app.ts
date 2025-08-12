@@ -12,15 +12,6 @@ app.use(express.json());
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDoc));
 
-// Basic health endpoints for platform checks
-app.get('/', (_req, res) => {
-  res.status(200).send('OK');
-});
-
-app.get('/healthz', (_req, res) => {
-  res.status(200).json({ status: 'ok' });
-});
-
 app.use('/api', api);
 
 // Error handler
