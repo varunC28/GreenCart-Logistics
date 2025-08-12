@@ -9,13 +9,12 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
     "test": "jest --runInBand",
-    "seed": "npm run build && node dist/scripts/seed-from-csv.js"
+    "seed": "ts-node src/scripts/seed-from-csv.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
-  "type": "module",
   "dependencies": {
     "@prisma/client": "^6.13.0",
     "bcryptjs": "^3.0.2",
