@@ -32,9 +32,9 @@ export default function Drivers() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <h2>Drivers</h2>
-      <form onSubmit={addDriver} style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+      <form onSubmit={addDriver} className="flex gap-8 mb-12">
         <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
         <input type="number" placeholder="Shift Hours" value={shift} onChange={(e) => setShift(parseInt(e.target.value, 10) || 0)} />
         <button type="submit">Add</button>

@@ -28,13 +28,13 @@ export default function Dashboard() {
     load();
   }, []);
 
-  if (loading) return <div style={{ padding: 16 }}>Loading...</div>;
+  if (loading) return <div className="page">Loading...</div>;
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <h2>Dashboard</h2>
       {metrics ? (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+        <div className="autoGrid">
           <div className="card">
             <h3>Total Profit</h3>
             <div>₹{metrics.totalProfit.toLocaleString()}</div>
@@ -43,7 +43,7 @@ export default function Dashboard() {
             <h3>Efficiency Score</h3>
             <div>{metrics.efficiencyScore}%</div>
           </div>
-          <div style={{ height: 300 }}>
+          <div className="chartBox card">
             <h3>On-time vs Late</h3>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -59,7 +59,7 @@ export default function Dashboard() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div style={{ height: 300 }}>
+          <div className="chartBox card">
             <h3>Fuel Cost Breakdown</h3>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={[{ name: 'Fuel', Base: metrics.fuel.base, Surcharge: metrics.fuel.surcharge }]}>

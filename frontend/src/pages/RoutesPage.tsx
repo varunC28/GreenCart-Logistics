@@ -37,9 +37,9 @@ export default function RoutesPage() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <h2>Routes</h2>
-      <form onSubmit={addItem} style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8, marginBottom: 12 }}>
+      <form onSubmit={addItem} className="grid5 mb-12">
         <input placeholder="Route ID" value={routeId} onChange={(e) => setRouteId(e.target.value)} />
         <input type="number" placeholder="Distance Km" value={distanceKm} onChange={(e) => setDistanceKm(parseFloat(e.target.value) || 0)} />
         <select aria-label="Traffic Level" value={trafficLevel} onChange={(e) => setTrafficLevel(e.target.value)}>

@@ -40,3 +40,56 @@
 .read-the-docs {
   color: #888;
 }
+
+/* App-wide layout helpers */
+.page {
+  padding: 16px;
+  text-align: left;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.chartBox {
+  height: 300px;
+}
+
+.autoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.formRow {
+  display: grid;
+  gap: 12px;
+}
+
+.mt-16 { margin-top: 16px; }
+.mb-12 { margin-bottom: 12px; }
+.w-100 { width: 100%; }
+.flex { display: flex; }
+.gap-8 { gap: 8px; }
+
+.topNav {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.spacer { flex: 1; }
+
+@media (max-width: 640px) {
+  .page { padding: 12px; }
+}
+
+/* Utility classes */
+.container-420 { max-width: 420px; margin: 40px auto; }
+.error { color: red; }
+.max-480 { max-width: 480px; }
+.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }

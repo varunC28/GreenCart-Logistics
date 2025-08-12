@@ -23,18 +23,18 @@ export default function Login() {
   }
 
   return (
-    <div style={{ maxWidth: 420, margin: '80px auto' }}>
+    <div className="page container-420">
       <h2>Manager Login</h2>
       <form onSubmit={onSubmit}>
-        <div style={{ marginBottom: 12 }}>
+        <div className="mb-12">
           <label htmlFor="email">Email</label>
-          <input id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" style={{ width: '100%' }} required />
+          <input id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="w-100" required />
         </div>
-        <div style={{ marginBottom: 12 }}>
+        <div className="mb-12">
           <label htmlFor="password">Password</label>
-          <input id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" style={{ width: '100%' }} required />
+          <input id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="w-100" required />
         </div>
-        {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
+        {error && <div className="error mb-12">{error}</div>}
         <button type="submit">Login</button>
       </form>
     </div>

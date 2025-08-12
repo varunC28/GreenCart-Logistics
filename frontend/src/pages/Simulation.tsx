@@ -33,9 +33,9 @@ export default function Simulation() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <h2>Simulation</h2>
-      <form onSubmit={runSimulation} style={{ display: 'grid', gap: 12, maxWidth: 480 }}>
+      <form onSubmit={runSimulation} className="formRow max-480">
         <label>
           Drivers
           <input type="number" min={1} value={numDrivers} onChange={(e) => setNumDrivers(parseInt(e.target.value, 10))} />
@@ -51,10 +51,10 @@ export default function Simulation() {
         <button type="submit" disabled={loading}>{loading ? 'Running...' : 'Run Simulation'}</button>
       </form>
 
-      {error && <div style={{ color: 'red', marginTop: 12 }}>{error}</div>}
+      {error && <div className="error mt-16">{error}</div>}
 
       {result && (
-        <div className="card" style={{ marginTop: 16 }}>
+        <div className="card mt-16">
           <h3>Results</h3>
           <div>Simulation ID: {result.simulationId}</div>
           <div>Total Profit: ₹{result.totalProfit.toLocaleString()}</div>

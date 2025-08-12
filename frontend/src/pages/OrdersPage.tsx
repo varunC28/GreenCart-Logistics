@@ -34,9 +34,9 @@ export default function OrdersPage() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <h2>Orders</h2>
-      <form onSubmit={addItem} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 12 }}>
+      <form onSubmit={addItem} className="grid4 mb-12">
         <input placeholder="Order ID" value={orderId} onChange={(e) => setOrderId(e.target.value)} />
         <input type="number" placeholder="Value (₹)" value={valueRs} onChange={(e) => setValueRs(parseInt(e.target.value, 10) || 0)} />
         <input type="number" placeholder="Route DB ID (optional)" value={assignedRouteId} onChange={(e) => setAssignedRouteId(e.target.value === '' ? '' : parseInt(e.target.value, 10))} />
